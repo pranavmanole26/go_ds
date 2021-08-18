@@ -1,3 +1,5 @@
+// This is a singly linked list implementation
+
 package main
 
 import "fmt"
