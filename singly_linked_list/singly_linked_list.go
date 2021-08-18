@@ -15,7 +15,7 @@ type linkedList struct {
 }
 
 func (ls *linkedList) isListEmpty() bool {
-	if ls.head == nil {
+	if ls.head == nil && ls.length == 0 {
 		fmt.Println("List is empty")
 		return true
 	}
@@ -89,27 +89,37 @@ func (ls *linkedList) search(val int) {
 	}
 }
 
+func (ls *linkedList) postRemove(removed *bool, value *int) {
+	*removed = true
+	ls.length--
+	fmt.Printf("Value %d removed from list.\n", *value)
+}
+
 func (ls *linkedList) remove(n int) {
 	if ls.isListEmpty() {
 		return
 	}
 	trav := ls.head
 	valueRemoved := false
+	// If node is first
 	if ls.head.val == n {
 		tempNode := ls.head
 		ls.head = ls.head.next
 		tempNode.next = nil
+		ls.postRemove(&valueRemoved, &n)
 		return
 	}
+	// If node is not first
 	for trav.next != nil {
 		if trav.next.val == n {
 			if trav.next.next != nil {
+				// If node is at last
 				trav.next = trav.next.next
 			} else {
+				// If node is in between
 				trav.next = nil
 			}
-			valueRemoved = true
-			fmt.Printf("Value %d removed from list.\n", n)
+			ls.postRemove(&valueRemoved, &n)
 			break
 		}
 		trav = trav.next
@@ -137,7 +147,7 @@ func main() {
 
 		switch choice {
 		case 0:
-			break
+			return
 		case 1:
 			fmt.Println("Add a new val:")
 			fmt.Scanln(&newVal)
