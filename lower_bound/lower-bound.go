@@ -13,8 +13,7 @@ func lowerBound(nums []int, num int) int {
 		mI := (lI + rI) / 2
 		if nums[mI] >= num {
 			lowerBnd = mI
-		}
-		if nums[mI] > num {
+			// always put this assignment in >=
 			rI = mI - 1
 		} else {
 			lI = mI + 1
