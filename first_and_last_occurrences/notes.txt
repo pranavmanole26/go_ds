@@ -1,0 +1,1 @@
+This problem statement is for sorted arrays and intended to be solved using binary search algorithm
