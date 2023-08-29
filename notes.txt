@@ -1,0 +1,8 @@
+Upper_bound:
+    - arr[i] > x
+Lower_bound:
+    - arr[i] >= x
+Floor:
+    - arr[i] <= x
+Ceil:
+    - arr[i] >= x
