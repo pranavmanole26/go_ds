@@ -1,0 +1,2 @@
+In case of Rotated sorted array when we use binary search with it, 
+then either left or right part of the array could be sorted.
