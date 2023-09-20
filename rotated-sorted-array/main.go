@@ -30,23 +30,23 @@ func findElement(nums []int, num int) int {
 		if nums[mI] == num {
 			return mI
 		}
-
+		// 5,1,2,3,4
 		// Find sorted array
 		if nums[mI] < nums[rI] {
-			// Left array is sorted
+			// Right array is sorted
 
-			// Check if num is present in the left sorted array
+			// Check if num could be present in the right sorted array
 			if nums[mI] <= num && num <= nums[rI] {
-				// If num is in the left sorted array then shift lI
+				// If the possibility of num is in the right sorted array then shift lI
 				lI = mI + 1
 			} else {
-				// If num is not in the left sorted array then shift rI
+				// If the possibility of num is not in the left sorted array then shift rI
 				rI = mI - 1
 			}
 		} else {
-			// Right array is sorted
+			// Left array is sorted
 
-			// Check if num is present in the right sorted array
+			// Check if num could be present in the left sorted array
 			if nums[lI] <= num && num <= nums[mI] {
 				// If yes then shift rI
 				rI = mI - 1
@@ -70,6 +70,7 @@ func hasElementFromDuplicateElements(nums []int, num int) bool {
 		if nums[mI] == num {
 			return true
 		}
+		// 3,2,3,3,3
 		// Check for this corner case where left, right and num could be the same values
 		// If this is the case then trim down the array
 		if nums[lI] == num && nums[rI] == num {
@@ -108,22 +109,22 @@ func minFromNonDuplicates(nums []int) int {
 
 		// First check sorted array
 		if nums[mI] < nums[rI] {
-			// Left part is sorted
+			// Right part is sorted
 			if min > nums[mI] {
 				// If min is greater than the mI index value
 				// then assign that value to min
 				min = nums[mI]
 			}
-			// Eleminate left half
+			// Eleminate right half, because there won't be lesser value available than the current min value
 			rI = mI - 1
 		} else {
-			// Right part is sorted
+			// Left part is sorted
 			if min > nums[lI] {
 				// If min is greater than the lI index value
 				// then assign that value to min
 				min = nums[lI]
 			}
-			// Elemenate right half
+			// Elemenate left half, because there won't be lesser value available than the current min value
 			lI = mI + 1
 		}
 	}
