@@ -1,0 +1,1 @@
+The solution is provided to find out number of times the sorted array has been rotated.
