@@ -1,0 +1,21 @@
+The solution takes help of binary search algorithm:
+
+Problem statement:
+
+1,1,2,2,3,3,4,5,5,6,6,7,7
+
+Answer: 4
+
+Condition:
+- Only one element will be single in the array.
+- Rest of the elements will be double.
+
+Step-wise explanation
+
+1. First check if either of the first or last element is single
+2. If not then, leftIndex will be 1 and rightIndex will be n-2
+3. Get midIndex and check if the mid element is single
+4. If not then, check if the mid element is in the left half or right half
+    - If mid is in the left half, then eliminate left half, because left side will always contain double elements
+    - If mid is in the right half, then eliminate right half, because right half will always contain double elements
+5. continue 2 till we don't get the single element
