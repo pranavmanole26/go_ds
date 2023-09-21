@@ -1,0 +1,1 @@
+getPeakElement() this function take care of only one peak. It does not return multiple peaks.
