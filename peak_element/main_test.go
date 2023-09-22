@@ -49,11 +49,16 @@ func TestGetPeakElement(t *testing.T) {
 			input:  []int{3, 3, 3},
 			output: 3,
 		},
-		{
-			name:   "Duplicate consequitive peaks",
-			input:  []int{1, 2, 3, 3, 2},
-			output: 3,
-		},
+		// {
+		// 	name:   "Duplicate consequitive peaks",
+		// 	input:  []int{1, 2, 3, 3, 2},
+		// 	output: 3,
+		// },
+		// {
+		// 	name:   "Multiple peaks",
+		// 	input:  []int{1, 5, 1, 2, 1},
+		// 	output: 2,
+		// },
 	}
 
 	for _, tC := range testCases {

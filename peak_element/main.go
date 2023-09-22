@@ -33,15 +33,17 @@ func getPeakElement(nums []int) int {
 		// check if mid index element is peak
 		if nums[mi] > nums[mi-1] && nums[mi] > nums[mi+1] {
 			return nums[mi]
-		}
-		// check if mid index element is greater than previous one
-		if nums[mi] >= nums[mi-1] {
+		} else if nums[mi] >= nums[mi-1] {
+			// check if mid index element is greater than previous one
 			// shift li, i.e. the numbers are growing towards right and the peak is at right
 			li = mi + 1
-		}
-		if nums[mi] >= nums[mi+1] {
+		} else if nums[mi] >= nums[mi+1] {
 			// shift ri, i.e. the numbers are growing towards left and the peak is at left
 			ri = mi - 1
 		}
+		// else {
+		// 	// In case of multiple peaks we can shift to either side
+		// 	li = mi + 1
+		// }
 	}
 }
