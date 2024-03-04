@@ -1,6 +1,6 @@
-package main
+package binarysearch
 
-func search(nums []int, lI int, rI int, num int) int {
+func Search(nums []int, lI int, rI int, num int) int {
 	if lI > rI {
 		return -1
 	}
@@ -13,5 +13,5 @@ func search(nums []int, lI int, rI int, num int) int {
 	} else {
 		lI = cI + 1
 	}
-	return search(nums, lI, rI, num)
+	return Search(nums, lI, rI, num)
 }
