@@ -1,9 +1,21 @@
-package main
+package binarysearch
 
-import "fmt"
+func BinSearch(sl []int, target int) int {
+	l := 0
+	r := len(sl) - 1
 
-func main() {
-	nums := []int{1, 2, 3, 4, 5}
-	i := search(nums, 0, len(nums)-1, 1)
-	fmt.Println(i)
+	for {
+		if l > r {
+			return -1
+		}
+		m := (l + r) / 2
+
+		if sl[m] == target {
+			return m
+		} else if sl[m] > target {
+			r = m - 1
+		} else {
+			l = m + 1
+		}
+	}
 }
