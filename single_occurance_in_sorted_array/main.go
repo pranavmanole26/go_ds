@@ -51,3 +51,45 @@ func getSingleElement(nums []int) (int, int) {
 		}
 	}
 }
+
+// func searchSingle(sl []int) int {
+
+// 	if len(sl) == 0 {
+// 		return -1
+// 	}
+
+// 	if len(sl) == 1 {
+// 		return sl[0]
+// 	}
+
+// 	if len(sl) == 2 {
+// 		if sl[0] != sl[1] {
+// 			return sl[0]
+// 		} else {
+// 			return -1
+// 		}
+// 	}
+
+// 	li := 0
+// 	ri := len(sl) - 1
+
+// 	for {
+// 		if li > ri {
+// 			return -1
+// 		}
+
+// 		mi := (li + ri) / 2
+
+// 		if mi == 0 && sl[mi] != sl[mi+1] ||
+// 			mi == len(sl)-1 && sl[mi] != sl[mi-1] ||
+// 			(sl[mi] != sl[mi-1] && sl[mi] != sl[mi+1]) {
+// 			return sl[mi]
+// 		}
+
+// 		if mi%2 == 0 && sl[mi] == sl[mi+1] || mi%2 == 1 && sl[mi] == sl[mi-1] {
+// 			li = mi + 1
+// 		} else {
+// 			ri = mi - 1
+// 		}
+// 	}
+// }
