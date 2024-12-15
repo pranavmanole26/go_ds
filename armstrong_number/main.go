@@ -1,5 +1,7 @@
 package main
 
+// Question: https://takeuforward.org/maths/check-if-a-number-is-armstrong-number-or-not/
+
 import (
 	"fmt"
 	"math"
