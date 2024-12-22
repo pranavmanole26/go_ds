@@ -59,9 +59,48 @@ func InsertionSort(nums []int) []int {
 	return nums
 }
 
+func MergeSort(nums []int) []int {
+	return mergeSort(nums)
+}
+
+func mergeSort(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+
+	mid := len(nums) / 2
+	// Recurssive call is maid till nums conatins single element
+	left := mergeSort(nums[:mid])
+	right := mergeSort(nums[mid:])
+
+	// For each left and right pairs the "merge" function will be called to perform sorting and merging.
+	return merge(left, right)
+}
+
+func merge(left, right []int) []int {
+	result := make([]int, 0)
+	i, j := 0, 0
+
+	for i < len(left) && j < len(right) {
+		if left[i] < right[j] {
+			result = append(result, left[i])
+			i++
+		} else {
+			result = append(result, right[j])
+			j++
+		}
+	}
+
+	result = append(result, left[i:]...)
+	result = append(result, right[j:]...)
+
+	return result
+}
+
 func main() {
-	nums := []int{4, 3, 5, 1, 2}
+	nums := []int{4, 3, 5, 1, 6, 2}
 	// fmt.Println(SelectionSort(nums))
 	// fmt.Println(BubbleSort(nums))
-	fmt.Println(InsertionSort(nums))
+	// fmt.Println(InsertionSort(nums))
+	fmt.Println(MergeSort(nums))
 }
