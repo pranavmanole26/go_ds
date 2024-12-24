@@ -119,6 +119,78 @@ func FindTheMissingNumberFromSeries(nums []int) int {
 	return sumOfIdealSeries - actualSum
 }
 
+func FindMaxConsecutiveOfGivenNumber(nums []int, num int) int {
+	maxCount := 0
+	count := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == num {
+			count++
+			if maxCount < count {
+				maxCount = count
+			}
+		} else {
+			count = 0
+		}
+	}
+	return maxCount
+}
+
+// Question: https://takeuforward.org/data-structure/find-the-majority-element-that-occurs-more-than-n-2-times/
+func MajorityElement(nums []int) int {
+	occuranceMap := map[int]int{}
+	for _, n := range nums {
+		occuranceMap[n] = occuranceMap[n] + 1
+	}
+	for k, v := range occuranceMap {
+		if v >= len(nums)/2 {
+			return k
+		}
+	}
+	return -1
+}
+
+// Not working with fmt.Println(MajorityElementOptimized([]int{1, 1, 2, 2, 1, 2, 3, 3, 2, 2, 1}))
+// Giving wrong answer as -1
+// func MajorityElementOptimized(nums []int) int {
+// 	var el int
+// 	var count int
+// 	for _, num := range nums {
+// 		if count == 0 {
+// 			count = 1
+// 			el = num
+// 		} else if el == num {
+// 			count++
+// 		} else {
+// 			count--
+// 		}
+// 	}
+// 	count = 0
+// 	for _, n := range nums {
+// 		if n == el {
+// 			count++
+// 		}
+// 	}
+// 	if count >= len(nums)/2 {
+// 		return el
+// 	}
+
+// 	return -1
+// }
+
+func MaximumSubarraySum(nums []int) int {
+	maxSum := 0
+	for i := 0; i < len(nums); i++ {
+		sum := 0
+		for j := i; j < len(nums); j++ {
+			sum += nums[j]
+			if sum > maxSum {
+				maxSum = sum
+			}
+		}
+	}
+	return maxSum
+}
+
 func main() {
 	// fmt.Println(LargestElement([]int{2, 4, 5, 3, 1}))
 	// fmt.Println(SecondSmallestAndSecondLargest([]int{2, 4, 5, 3, 1}))
@@ -133,5 +205,9 @@ func main() {
 	// fmt.Println(RemoveDuplicatesFromSorted([]int{1, 2, 2, 3, 3, 4, 4, 5, 5, 5, 6}))
 	// fmt.Println(ShiftArrayElementsByKPlacesToLeft([]int{1, 2, 3, 4, 5}, 2))
 	// fmt.Println(ShiftAllOccurancesOfGivenNumberToTheLeft([]int{1, 2, 3, 4, 2, 3, 2, 1, 2}, 3))
-	fmt.Println(FindTheMissingNumberFromSeries([]int{1, 2, 3, 5, 6}))
+	// fmt.Println(FindTheMissingNumberFromSeries([]int{1, 2, 3, 5, 6}))
+	// fmt.Println(FindMaxConsecutiveOfGivenNumber([]int{1, 1, 2, 2, 1, 1, 1, 2, 3, 1, 1, 1, 1}, 2))
+	// fmt.Println(MajorityElement([]int{1, 1, 2, 2, 1, 2, 3, 3, 2, 2, 1}))
+	fmt.Println(MaximumSubarraySum([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+
 }
