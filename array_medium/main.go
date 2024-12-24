@@ -102,9 +102,24 @@ func LongestSubArrayWithSum(nums []int, sum int) int {
 	return longestSubArrayLength
 }
 
+func TwoSum(nums []int, sum int) (int, int) {
+	mapRemainingToNumber := map[int]int{}
+
+	for _, num := range nums {
+		mapRemainingToNumber[sum-num] = num
+	}
+	for k, v := range mapRemainingToNumber {
+		if val, ok := mapRemainingToNumber[sum-k]; ok {
+			return v, val
+		}
+	}
+	return -1, -1
+}
+
 func main() {
 	// fmt.Println(UnionOfTwoArrays([]int{1, 2, 2, 4, 6}, []int{2, 3, 4, 4, 4, 5, 7, 8}))
 	// fmt.Println(FindSingleElement([]int{1, 1, 2, 3, 4, 3, 2}))
-	fmt.Println(LongestSubArrayWithSum([]int{2, 3, 5, 1, 9}, 10))
-	fmt.Println(LongestSubArrayWithSum([]int{-1, 1, 1}, 1))
+	// fmt.Println(LongestSubArrayWithSum([]int{2, 3, 5, 1, 9}, 10))
+	// fmt.Println(LongestSubArrayWithSum([]int{-1, 1, 1}, 1))
+	fmt.Println(TwoSum([]int{2, 6, 5, 8, 11}, 14))
 }
