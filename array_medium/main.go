@@ -147,6 +147,7 @@ func SortZeroOneTwo(nums []int) []int {
 	return nums
 }
 
+// Question: https://takeuforward.org/data-structure/stock-buy-and-sell/
 func BuyAndSellStocks(nums []int) int {
 	maxProfit := 0
 	for i := 0; i < len(nums); i++ {
@@ -180,6 +181,48 @@ func BuyAndSellStocksOptimal(nums []int) int {
 	return maxProfit
 }
 
+func isPositive(num int) bool {
+	return num > 0
+}
+
+func isNegative(num int) bool {
+	return num < 0
+}
+
+func isOppositeSigns(num1, nums2 int) bool {
+	return (isNegative(num1) && isPositive(nums2)) || (isPositive(num1) && isNegative(nums2))
+}
+
+// Question: https://takeuforward.org/arrays/rearrange-array-elements-by-sign/
+func RearrageBySigns(nums []int) []int {
+	if len(nums) <= 1 {
+		return nums
+	}
+	// The sortedI help us to identify till what index an array is sorted
+	sortedI := 0
+	for i := 1; i < len(nums)-1; i++ {
+		if isOppositeSigns(nums[sortedI], nums[i]) {
+			// Do swapping only when the current index and the sortedI are having difference more than one
+			// Meaning current index is far away from the sortedI because of all the consecutive numbers are of same sign
+			if i-sortedI > 1 {
+				nums[sortedI+1], nums[i] = nums[i], nums[sortedI+1]
+				// After swapping if the number at sorted+1 and number next to sorted+1 are of different sign then increment sortedI by 2
+				if isOppositeSigns(nums[sortedI+1], nums[sortedI+2]) {
+					sortedI++
+				}
+			}
+			sortedI++
+		}
+	}
+	return nums
+}
+
+// func NextLexicographicalSequence(nums []int) []int {
+// 	for i:=len(nums)-1; i>=0;i++ {
+// 		if
+// 	}
+// }
+
 func main() {
 	// fmt.Println(UnionOfTwoArrays([]int{1, 2, 2, 4, 6}, []int{2, 3, 4, 4, 4, 5, 7, 8}))
 	// fmt.Println(FindSingleElement([]int{1, 1, 2, 3, 4, 3, 2}))
@@ -188,7 +231,12 @@ func main() {
 	// fmt.Println(TwoSum([]int{2, 6, 5, 8, 11}, 14))
 	// fmt.Println(SortZeroOneTwo([]int{2, 0, 2, 1, 2, 1, 0, 1}))
 	// fmt.Println(BuyAndSellStocks([]int{7, 1, 5, 3, 6, 4}))
-	fmt.Println(BuyAndSellStocksOptimal([]int{7, 1, 5, 3, 6, 4}))
-	fmt.Println(BuyAndSellStocksOptimal([]int{7, 5, 5, 3, 2, 1}))
-	fmt.Println(BuyAndSellStocksOptimal([]int{7, 3, 5, 1, 6, 4}))
+	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 1, 5, 3, 6, 4}))
+	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 5, 5, 3, 2, 1}))
+	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 3, 5, 1, 6, 4}))
+	fmt.Println(RearrageBySigns([]int{1, 2, -4, -5}))
+	fmt.Println(RearrageBySigns([]int{1, 2, -3, -1, 2, -3}))
+	fmt.Println(RearrageBySigns([]int{1, 2, 3, -1, -2, -3}))
+	fmt.Println(RearrageBySigns([]int{1, 2, 3, 4, -4, -1, -2, -3}))
+
 }
