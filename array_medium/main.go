@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func UnionOfTwoArrays(first, second []int) []int {
 	final := []int{}
@@ -144,11 +147,48 @@ func SortZeroOneTwo(nums []int) []int {
 	return nums
 }
 
+func BuyAndSellStocks(nums []int) int {
+	maxProfit := 0
+	for i := 0; i < len(nums); i++ {
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] < nums[j] && nums[j]-nums[i] > maxProfit {
+				maxProfit = nums[j] - nums[i]
+			}
+		}
+	}
+	return maxProfit
+}
+
+// **** Optimal solution
+func BuyAndSellStocksOptimal(nums []int) int {
+	maxProfit := 0
+	minPrice := math.MaxInt
+	for i := 0; i < len(nums); i++ {
+		// Update minPrice value everytime we get lesser value
+		// And go for next iteration. No need to perform any further action in this iteration
+		if minPrice > nums[i] {
+			minPrice = nums[i]
+			continue
+		}
+		// If maxProfit is lesser than the difference between current value and minPrice then update maxProfit
+		// I.e. update maxProfit if the current profit is higher.
+		//  The current profit is the difference between current value and the minPrice
+		if maxProfit < nums[i]-minPrice {
+			maxProfit = nums[i] - minPrice
+		}
+	}
+	return maxProfit
+}
+
 func main() {
 	// fmt.Println(UnionOfTwoArrays([]int{1, 2, 2, 4, 6}, []int{2, 3, 4, 4, 4, 5, 7, 8}))
 	// fmt.Println(FindSingleElement([]int{1, 1, 2, 3, 4, 3, 2}))
-	fmt.Println(LongestSubArrayWithSum([]int{2, 3, 5, 1, 9}, 10))
-	fmt.Println(LongestSubArrayWithSum([]int{-1, 1, 1}, 1))
+	// fmt.Println(LongestSubArrayWithSum([]int{2, 3, 5, 1, 9}, 10))
+	// fmt.Println(LongestSubArrayWithSum([]int{-1, 1, 1}, 1))
 	// fmt.Println(TwoSum([]int{2, 6, 5, 8, 11}, 14))
 	// fmt.Println(SortZeroOneTwo([]int{2, 0, 2, 1, 2, 1, 0, 1}))
+	// fmt.Println(BuyAndSellStocks([]int{7, 1, 5, 3, 6, 4}))
+	fmt.Println(BuyAndSellStocksOptimal([]int{7, 1, 5, 3, 6, 4}))
+	fmt.Println(BuyAndSellStocksOptimal([]int{7, 5, 5, 3, 2, 1}))
+	fmt.Println(BuyAndSellStocksOptimal([]int{7, 3, 5, 1, 6, 4}))
 }
