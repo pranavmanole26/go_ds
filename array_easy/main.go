@@ -191,6 +191,34 @@ func MaximumSubarraySum(nums []int) int {
 	return maxSum
 }
 
+func FindLeaders(nums []int) []int {
+	leaders := []int{}
+	for i := 0; i < len(nums); i++ {
+		isLeader := true
+		for j := i + 1; j < len(nums); j++ {
+			if nums[i] < nums[j] {
+				isLeader = false
+			}
+		}
+		if isLeader {
+			leaders = append(leaders, nums[i])
+		}
+	}
+	return leaders
+}
+
+func FindLeadersOptimal(nums []int) []int {
+	leaders := []int{}
+	maxNum := 0
+	for i := len(nums) - 1; i >= 0; i-- {
+		if nums[i] >= maxNum {
+			leaders = append(leaders, nums[i])
+			maxNum = nums[i]
+		}
+	}
+	return leaders
+}
+
 func main() {
 	// fmt.Println(LargestElement([]int{2, 4, 5, 3, 1}))
 	// fmt.Println(SecondSmallestAndSecondLargest([]int{2, 4, 5, 3, 1}))
@@ -208,6 +236,10 @@ func main() {
 	// fmt.Println(FindTheMissingNumberFromSeries([]int{1, 2, 3, 5, 6}))
 	// fmt.Println(FindMaxConsecutiveOfGivenNumber([]int{1, 1, 2, 2, 1, 1, 1, 2, 3, 1, 1, 1, 1}, 2))
 	// fmt.Println(MajorityElement([]int{1, 1, 2, 2, 1, 2, 3, 3, 2, 2, 1}))
-	fmt.Println(MaximumSubarraySum([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	// fmt.Println(MaximumSubarraySum([]int{-2, 1, -3, 4, -1, 2, 1, -5, 4}))
+	fmt.Println(FindLeaders([]int{4, 7, 1, 0}))
+	fmt.Println(FindLeaders([]int{10, 22, 12, 3, 0, 6}))
+	fmt.Println(FindLeadersOptimal([]int{4, 7, 1, 0}))
+	fmt.Println(FindLeadersOptimal([]int{10, 22, 12, 3, 0, 6}))
 
 }
