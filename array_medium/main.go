@@ -217,11 +217,109 @@ func RearrageBySigns(nums []int) []int {
 	return nums
 }
 
+// Question: https://takeuforward.org/data-structure/longest-consecutive-sequence-in-an-array/
+// Works well with +ve numbers
+// TODO: need to use set to have unique numbers
+func LongestConsecutiveSequence(nums []int) int {
+	longestConsecutiveSubArray := 0
+	for i := 0; i < len(nums); i++ {
+		if nums[i] == -100 {
+			continue
+		}
+		curSubArray := []int{nums[i]}
+		for j := i + 1; j < len(nums); {
+			if nums[i] == nums[j] {
+				nums[j] = -100
+				j++
+				continue
+			}
+			// fmt.Println(curSubArray)
+			if curSubArray[len(curSubArray)-1]+1 == nums[j] {
+				curSubArray = append(curSubArray, nums[j])
+				nums[j] = -100
+				j = i + 1
+			} else if curSubArray[len(curSubArray)-1]-1 == nums[j] ||
+				curSubArray[0]-1 == nums[j] {
+				curSubArray = append([]int{nums[j]}, curSubArray...)
+				nums[j] = -100
+				j = i + 1
+			} else {
+				j++
+			}
+		}
+		if len(curSubArray) > longestConsecutiveSubArray {
+			longestConsecutiveSubArray = len(curSubArray)
+		}
+	}
+	return longestConsecutiveSubArray
+}
+
 // func NextLexicographicalSequence(nums []int) []int {
-// 	for i:=len(nums)-1; i>=0;i++ {
-// 		if
+// 	mp := map[int]struct{}{}
+// 	for i := 0; i < len(nums); i++ {
+// 		_, ok1 := mp[nums[i]-1]
+// 		_, ok2 := mp[nums[i]+1]
+// 		if ok1 || ok2 {
+
+// 		}
 // 	}
 // }
+
+func SetMatrixZero(matrix [][]int) [][]int {
+	zeroI := map[int]struct{}{}
+	zeroJ := map[int]struct{}{}
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			if matrix[i][j] == 0 {
+				zeroI[i] = struct{}{}
+				zeroJ[j] = struct{}{}
+			}
+		}
+	}
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			_, isIZero := zeroI[i]
+			_, isJZero := zeroJ[j]
+			if isIZero || isJZero {
+				matrix[i][j] = 0
+			}
+		}
+	}
+	return matrix
+}
+
+func RotateMatrixByNintyDegree(matrix [][]int) [][]int {
+	rotatedMatrix := make([][]int, len(matrix))
+	for i := 0; i < len(matrix); i++ {
+		row := make([]int, len(matrix[i]))
+		rotatedMatrix[i] = row
+	}
+	col := len(matrix) - 1
+	for i := 0; i < len(matrix); i++ {
+		for j := 0; j < len(matrix[i]); j++ {
+			rotatedMatrix[j][col] = matrix[i][j]
+		}
+		col--
+	}
+	return rotatedMatrix
+}
+
+// 	0 1 2   0 1 2
+// 0	1 2 3   7 4 1
+// 1	4 5 6	8 5 2
+// 2	7 8 9	9 6 3
+
+// 1: [0,0] -> [0,2]
+// 2: [0,1] -> [1,2]
+// 3: [0,2] -> [2,2]
+
+// 4: [1,0] -> [0,1]
+// 5: [1,1] -> [1,1]
+// 6: [1,2] -> [2,1]
+
+// 7:
+// 8:
+// 9:
 
 func main() {
 	// fmt.Println(UnionOfTwoArrays([]int{1, 2, 2, 4, 6}, []int{2, 3, 4, 4, 4, 5, 7, 8}))
@@ -234,9 +332,16 @@ func main() {
 	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 1, 5, 3, 6, 4}))
 	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 5, 5, 3, 2, 1}))
 	// fmt.Println(BuyAndSellStocksOptimal([]int{7, 3, 5, 1, 6, 4}))
-	fmt.Println(RearrageBySigns([]int{1, 2, -4, -5}))
-	fmt.Println(RearrageBySigns([]int{1, 2, -3, -1, 2, -3}))
-	fmt.Println(RearrageBySigns([]int{1, 2, 3, -1, -2, -3}))
-	fmt.Println(RearrageBySigns([]int{1, 2, 3, 4, -4, -1, -2, -3}))
-
+	// fmt.Println(RearrageBySigns([]int{1, 2, -4, -5}))
+	// fmt.Println(RearrageBySigns([]int{1, 2, -3, -1, 2, -3}))
+	// fmt.Println(RearrageBySigns([]int{1, 2, 3, -1, -2, -3}))
+	// fmt.Println(RearrageBySigns([]int{1, 2, 3, 4, -4, -1, -2, -3}))
+	// fmt.Println(LongestConsecutiveSequence([]int{100, 200, 1, 3, 2, 4}))
+	// fmt.Println(LongestConsecutiveSequence([]int{0, 3, 7, 2, 5, 8, 4, 6, 0, 1}))
+	// fmt.Println(LongestConsecutiveSequence([]int{100, 4, 200, 1, 3, 2}))
+	// fmt.Println(LongestConsecutiveSequence([]int{1, 2, 0, 1}))
+	// fmt.Println(SetMatrixZero([][]int{{1, 1, 1}, {1, 0, 1}, {1, 1, 1}}))
+	// fmt.Println(SetMatrixZero([][]int{{0, 1, 2, 0}, {3, 4, 5, 2}, {1, 3, 1, 5}}))
+	fmt.Println(RotateMatrixByNintyDegree([][]int{{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}))
+	fmt.Println(RotateMatrixByNintyDegree([][]int{{5, 1, 9, 11}, {2, 4, 8, 10}, {13, 3, 6, 7}, {15, 14, 12, 16}}))
 }
